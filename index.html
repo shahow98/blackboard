@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="utf-8">
+
+		<link rel="stylesheet" href="./css/index.css" />
+		<title>小黑板</title>
+	</head>
+	<body>
+		<div id="app">
+			<h1 id="header">
+				{{title}}
+			</h1>
+
+			<div id="blackboard">
+				<div id="display">
+					<div id="content" v-if="bullet != ''" :style="content.style">
+						<span class="bullet">
+							{{bullet}}
+						</span>
+					</div>
+				</div>
+			</div>
+
+			<button id="setting" @click="showSetting">
+				setting
+			</button>
+
+			<div id="dialog" v-show="setting.show">
+				<h1 id="dialog__header">{{setting.title}}</h1>
+				<input id="dialog__bullet" type="text" v-model:value="bullet" autocomplete="off" />
+				<div id="dialog__palette">
+					<span>Pick a color:</span>
+					<input id="dialog__color" type="text" v-model:value="setting.color" autocomplete="off" />
+					<ul class="rainbow">
+						<li class="rainbow__item" v-for="(item, index) in setting.rainbow" :key="index" @click="changeColor(item)" :style="{backgroundColor: item}">
+						</li>
+					</ul>
+				</div>
+			</div>
+
+			<div id="shade" v-show="setting.show" @click="disableSetting">
+			</div>
+		</div>
+
+
+		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+		<script src="./js/index.js"></script>
+	</body>
+</html>
